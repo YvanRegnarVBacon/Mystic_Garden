@@ -6,13 +6,14 @@
 package config;
 
 import java.sql.*;
+import java.util.*;
 
 /**
  *
  * @author 63936
  */
 public class config {
-public static Connection connectDB() {
+    public static Connection connectDB() {
         Connection con = null;
         try {
             Class.forName("org.sqlite.JDBC"); // Load the SQLite JDBC driver
@@ -23,85 +24,132 @@ public static Connection connectDB() {
         }
         return con;
     }
-public void addRecord(String sql, Object... values) {
-    try (Connection conn = this.connectDB(); // Use the connectDB method
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    
+    public void addRecord(String sql, Object... values) {
+        try (Connection conn = this.connectDB(); // Use the connectDB method
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        // Loop through the values and set them in the prepared statement dynamically
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] instanceof Integer) {
-                pstmt.setInt(i + 1, (Integer) values[i]); // If the value is Integer
-            } else if (values[i] instanceof Double) {
-                pstmt.setDouble(i + 1, (Double) values[i]); // If the value is Double
-            } else if (values[i] instanceof Float) {
-                pstmt.setFloat(i + 1, (Float) values[i]); // If the value is Float
-            } else if (values[i] instanceof Long) {
-                pstmt.setLong(i + 1, (Long) values[i]); // If the value is Long
-            } else if (values[i] instanceof Boolean) {
-                pstmt.setBoolean(i + 1, (Boolean) values[i]); // If the value is Boolean
-            } else if (values[i] instanceof java.util.Date) {
-                pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime())); // If the value is Date
-            } else if (values[i] instanceof java.sql.Date) {
-                pstmt.setDate(i + 1, (java.sql.Date) values[i]); // If it's already a SQL Date
-            } else if (values[i] instanceof java.sql.Timestamp) {
-                pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]); // If the value is Timestamp
-            } else {
-                pstmt.setString(i + 1, values[i].toString()); // Default to String for other types
+            // Loop through the values and set them in the prepared statement dynamically
+            for (int i = 0; i < values.length; i++) {
+                if (values[i] instanceof Integer) {
+                    pstmt.setInt(i + 1, (Integer) values[i]); // If the value is Integer
+                } else if (values[i] instanceof Double) {
+                    pstmt.setDouble(i + 1, (Double) values[i]); // If the value is Double
+                } else if (values[i] instanceof Float) {
+                    pstmt.setFloat(i + 1, (Float) values[i]); // If the value is Float
+                } else if (values[i] instanceof Long) {
+                    pstmt.setLong(i + 1, (Long) values[i]); // If the value is Long
+                } else if (values[i] instanceof Boolean) {
+                    pstmt.setBoolean(i + 1, (Boolean) values[i]); // If the value is Boolean
+                } else if (values[i] instanceof java.util.Date) {
+                    pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime())); // If the value is Date
+                } else if (values[i] instanceof java.sql.Date) {
+                    pstmt.setDate(i + 1, (java.sql.Date) values[i]); // If it's already a SQL Date
+                } else if (values[i] instanceof java.sql.Timestamp) {
+                    pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]); // If the value is Timestamp
+                } else {
+                    pstmt.setString(i + 1, values[i].toString()); // Default to String for other types
+                }
             }
-        }
 
-        pstmt.executeUpdate();
-        System.out.println("Record added successfully!");
-    } catch (SQLException e) {
-        System.out.println("Error adding record: " + e.getMessage());
+            pstmt.executeUpdate();
+            System.out.println("Record added successfully!");
+        } catch (SQLException e) {
+            System.out.println("Error adding record: " + e.getMessage());
+        }
     }
-}
-// Method to hash passwords using SHA-256
-public static String hashPassword(String password) {
-    try {
-        java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
-        byte[] hashedBytes = md.digest(password.getBytes(java.nio.charset.StandardCharsets.UTF_8));
-        
-        // Convert byte array to hex string
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : hashedBytes) {
-            String hex = Integer.toHexString(0xff & b);
-            if (hex.length() == 1) hexString.append('0');
-            hexString.append(hex);
-        }
-        return hexString.toString();
-    } catch (java.security.NoSuchAlgorithmException e) {
-        System.out.println("Error hashing password: " + e.getMessage());
-        return null;
-    }
-}
-public java.util.List<java.util.Map<String, Object>> fetchRecords(String sqlQuery, Object... values) {
-    java.util.List<java.util.Map<String, Object>> records = new java.util.ArrayList<>();
-
-    try (Connection conn = this.connectDB();
-         PreparedStatement pstmt = conn.prepareStatement(sqlQuery)) {
-
-        for (int i = 0; i < values.length; i++) {
-            pstmt.setObject(i + 1, values[i]);
-        }
-
-        ResultSet rs = pstmt.executeQuery();
-        ResultSetMetaData metaData = rs.getMetaData();
-        int columnCount = metaData.getColumnCount();
-
-        while (rs.next()) {
-            java.util.Map<String, Object> row = new java.util.HashMap<>();
-            for (int i = 1; i <= columnCount; i++) {
-                row.put(metaData.getColumnName(i), rs.getObject(i));
+    
+    // Method to hash passwords using SHA-256
+    public static String hashPassword(String password) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = md.digest(password.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            
+            // Convert byte array to hex string
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashedBytes) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
             }
-            records.add(row);
+            return hexString.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+            System.out.println("Error hashing password: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public java.util.List<java.util.Map<String, Object>> fetchRecords(String sqlQuery, Object... values) {
+        java.util.List<java.util.Map<String, Object>> records = new java.util.ArrayList<>();
+
+        try (Connection conn = this.connectDB();
+             PreparedStatement pstmt = conn.prepareStatement(sqlQuery)) {
+
+            for (int i = 0; i < values.length; i++) {
+                pstmt.setObject(i + 1, values[i]);
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (rs.next()) {
+                java.util.Map<String, Object> row = new java.util.HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.put(metaData.getColumnName(i), rs.getObject(i));
+                }
+                records.add(row);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error fetching records: " + e.getMessage());
         }
 
-    } catch (SQLException e) {
-        System.out.println("Error fetching records: " + e.getMessage());
+        return records;
     }
 
-    return records;
-}
-
+    // Fixed executeUpdate methods - all variations needed by your admindashboard class
+    
+    public int executeUpdate(String query, Object... values) {
+        int rowsAffected = 0;
+        try (Connection conn = this.connectDB();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            
+            for (int i = 0; i < values.length; i++) {
+                pstmt.setObject(i + 1, values[i]);
+            }
+            
+            rowsAffected = pstmt.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
+            
+        } catch (SQLException e) {
+            System.out.println("Error executing update: " + e.getMessage());
+        }
+        return rowsAffected;
+    }
+    
+    // Overloaded version with String userId (for delete)
+    public int executeUpdate(String query, String userId) {
+        return executeUpdate(query, (Object) userId);
+    }
+    
+    // Overloaded version for create table (no parameters)
+    public void executeUpdate(String createTableSQL) {
+        executeUpdate(createTableSQL, new Object[]{});
+    }
+    
+    // Overloaded version for insert (4 parameters)
+    public int executeUpdate(String query, String firstName, String lastName, String gender, String role) {
+        return executeUpdate(query, (Object) firstName, lastName, gender, role);
+    }
+    
+    // Overloaded version for update (5 parameters)
+    public int executeUpdate(String query, String firstName, String lastName, String gender, String role, int id) {
+        return executeUpdate(query, (Object) firstName, lastName, gender, role, id);
+    }
+    
+    // Overloaded version for insert with 6 parameters (for addUser)
+    public int executeUpdate(String query, String name, String email, String gender, String password, String role, String status) {
+        return executeUpdate(query, (Object) name, email, gender, password, role, status);
+    }
 }

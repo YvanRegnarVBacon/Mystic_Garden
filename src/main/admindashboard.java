@@ -5,17 +5,33 @@
  */
 package main;
 
+import config.config;
+import java.awt.event.ActionEvent;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import java.util.Map;
+
 /**
  *
  * @author 63936
  */
 public class admindashboard extends javax.swing.JFrame {
 
+    // Database configuration
+    private config dbConfig;
+    private DefaultTableModel tableModel;
+    private JLabel countLabel; // To show user count
+
     /**
      * Creates new form admindashboard
      */
     public admindashboard() {
         initComponents();
+        dbConfig = new config();
+        initializeTable();
+        loadUsers();
+        setupTableSelection();
     }
 
     /**
@@ -27,31 +43,638 @@ public class admindashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        name = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        email = new javax.swing.JTextField();
+        role = new javax.swing.JTextField();
+        gender = new javax.swing.JTextField();
+        Search_btn = new javax.swing.JButton();
+        confirm_btn = new javax.swing.JButton();
+        delete_btn = new javax.swing.JButton();
+        Clear_btn = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Tbl_Users = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("ADMIN");
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Screenshot 2026-02-01 122152.png"))); // NOI18N
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Screenshot 2026-02-01 122416.png"))); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Screenshot 2026-02-01 122427.png"))); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("First Name:");
+        jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), new java.awt.Color(153, 153, 255)));
+
+        name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Gender:");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), new java.awt.Color(153, 153, 255)));
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Email:");
+        jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), new java.awt.Color(153, 153, 255)));
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Role:");
+        jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 255), new java.awt.Color(153, 153, 255)));
+
+        email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
+            }
+        });
+
+        role.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roleActionPerformed(evt);
+            }
+        });
+
+        gender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genderActionPerformed(evt);
+            }
+        });
+
+        Search_btn.setBackground(new java.awt.Color(153, 153, 255));
+        Search_btn.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        Search_btn.setText("Search");
+        Search_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_btnActionPerformed(evt);
+            }
+        });
+
+        confirm_btn.setBackground(new java.awt.Color(153, 153, 255));
+        confirm_btn.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        confirm_btn.setText("Confirm");
+        confirm_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirm_btnActionPerformed(evt);
+            }
+        });
+
+        delete_btn.setBackground(new java.awt.Color(153, 153, 255));
+        delete_btn.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        delete_btn.setText("Delet");
+        delete_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delete_btnActionPerformed(evt);
+            }
+        });
+
+        Clear_btn.setBackground(new java.awt.Color(153, 153, 255));
+        Clear_btn.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        Clear_btn.setText("Clear");
+        Clear_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Clear_btnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(jLabel7))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(confirm_btn))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61)
+                                .addComponent(Search_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Clear_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(delete_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 91, Short.MAX_VALUE)))
+                .addGap(6, 6, 6))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Search_btn)
+                    .addComponent(delete_btn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8)
+                    .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirm_btn)
+                    .addComponent(Clear_btn))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(153, 102, 255));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Screenshot 2026-02-01 124117.png"))); // NOI18N
+
+        Tbl_Users.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(Tbl_Users);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(208, 208, 208)
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(700, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(472, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+        // When user presses Enter in Name field
+        if ((evt.getModifiers() & ActionEvent.SHIFT_MASK) != 0
+                || (evt.getModifiers() & ActionEvent.CTRL_MASK) != 0
+                || (evt.getModifiers() & ActionEvent.ALT_MASK) != 0) {
+            return;
+        }
+
+        String searchText = name.getText().trim();
+        if (searchText.isEmpty()) {
+            return;
+        }
+
+        try {
+            tableModel.setRowCount(0);
+
+            // Updated query to match actual database columns
+            String query = "SELECT * FROM users WHERE "
+                    + "name LIKE ? OR "
+                    + "email LIKE ? OR "
+                    + "gender LIKE ? OR "
+                    + "role LIKE ? "
+                    + "ORDER BY u_id";
+
+            String likeTerm = "%" + searchText + "%";
+            List<Map<String, Object>> users = dbConfig.fetchRecords(query,
+                    likeTerm, likeTerm, likeTerm, likeTerm);
+
+            int count = 0;
+            for (Map<String, Object> user : users) {
+                count++;
+                tableModel.addRow(new Object[]{
+                    user.get("u_id"),
+                    user.get("name"),
+                    user.get("email"),
+                    user.get("gender"),
+                    user.get("role"),
+                    user.get("status")
+                });
+            }
+
+            if (count == 0) {
+                countLabel.setText("No results for: '" + searchText + "'");
+                JOptionPane.showMessageDialog(this,
+                        "No users found matching: " + searchText,
+                        "Search Results",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                countLabel.setText("Found " + count + " user(s) for: '" + searchText + "'");
+
+                if (count == 1) {
+                    Tbl_Users.setRowSelectionInterval(0, 0);
+                    Tbl_Users.scrollRectToVisible(Tbl_Users.getCellRect(0, 0, true));
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Search error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_nameActionPerformed
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+        // Email field - auto-search by email
+        String emailText = email.getText().trim();
+
+        if (emailText.isEmpty()) {
+            gender.requestFocus();
+            return;
+        }
+
+        try {
+            tableModel.setRowCount(0);
+
+            // Search specifically by email
+            String query = "SELECT * FROM users WHERE email LIKE ? ORDER BY u_id";
+            String likeTerm = "%" + emailText + "%";
+            List<Map<String, Object>> users = dbConfig.fetchRecords(query, likeTerm);
+
+            int count = 0;
+            for (Map<String, Object> user : users) {
+                count++;
+                tableModel.addRow(new Object[]{
+                    user.get("u_id"),
+                    user.get("name"),
+                    user.get("email"),
+                    user.get("gender"),
+                    user.get("role"),
+                    user.get("status")
+                });
+            }
+
+            if (count == 0) {
+                countLabel.setText("No users with email: '" + emailText + "'");
+                JOptionPane.showMessageDialog(this,
+                        "No users found with email: " + emailText,
+                        "Search Results",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                countLabel.setText("Found " + count + " user(s) with email: '" + emailText + "'");
+
+                if (count == 1) {
+                    Tbl_Users.setRowSelectionInterval(0, 0);
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Search error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_emailActionPerformed
+
+    private void roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleActionPerformed
+        // Role field validation and suggestions
+        String roleText = role.getText().trim();
+
+        if (roleText.isEmpty()) {
+            String[] commonRoles = {"Admin", "User", "Manager", "Developer", "Guest"};
+            String selectedRole = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Select a role:",
+                    "Role Selection",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    commonRoles,
+                    "User"
+            );
+
+            if (selectedRole != null) {
+                role.setText(selectedRole);
+            }
+            return;
+        }
+
+        String[] validRoles = {"Admin", "User", "Manager", "Developer", "Guest"};
+        boolean isValid = false;
+
+        for (String validRole : validRoles) {
+            if (roleText.equalsIgnoreCase(validRole)) {
+                role.setText(validRole);
+                isValid = true;
+                break;
+            }
+        }
+
+        if (!isValid) {
+            int option = JOptionPane.showConfirmDialog(
+                    this,
+                    "'" + roleText + "' is not a standard role.\n"
+                    + "Standard roles are: Admin, User, Manager, Developer, Guest\n"
+                    + "Do you want to use it anyway?",
+                    "Role Validation",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            if (option == JOptionPane.NO_OPTION) {
+                role.setText("");
+                role.requestFocus();
+                return;
+            }
+        }
+
+        Search_btn.requestFocus();
+    }//GEN-LAST:event_roleActionPerformed
+
+    private void genderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderActionPerformed
+        // Gender field validation and suggestions
+        String genderText = gender.getText().trim();
+
+        if (genderText.isEmpty()) {
+            String[] genderOptions = {"Male", "Female", "Other", "Prefer Not to Say"};
+            String selectedGender = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Select gender:",
+                    "Gender Selection",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    genderOptions,
+                    "Prefer Not to Say"
+            );
+
+            if (selectedGender != null) {
+                gender.setText(selectedGender);
+            }
+            return;
+        }
+
+        String normalizedGender = normalizeGender(genderText);
+        if (!normalizedGender.equals(genderText)) {
+            gender.setText(normalizedGender);
+        }
+
+        role.requestFocus();
+        role.selectAll();
+    }
+
+    private String normalizeGender(String gender) {
+        String lowerGender = gender.toLowerCase();
+
+        if (lowerGender.startsWith("m") || lowerGender.equals("male")) {
+            return "Male";
+        } else if (lowerGender.startsWith("f") || lowerGender.equals("female")) {
+            return "Female";
+        } else if (lowerGender.startsWith("o") || lowerGender.equals("other")) {
+            return "Other";
+        } else if (lowerGender.contains("prefer") || lowerGender.contains("not")) {
+            return "Prefer Not to Say";
+        }
+
+        return gender;
+    }//GEN-LAST:event_genderActionPerformed
+
+    private void Search_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_btnActionPerformed
+
+        // Search button functionality
+        String searchTerm = name.getText().trim();
+
+        if (searchTerm.isEmpty()) {
+            loadUsers();
+            return;
+        }
+
+        try {
+            tableModel.setRowCount(0);
+
+            // Updated query for actual database columns
+            String query = "SELECT * FROM users WHERE "
+                    + "name LIKE ? OR "
+                    + "email LIKE ? OR "
+                    + "gender LIKE ? OR "
+                    + "role LIKE ? "
+                    + "ORDER BY u_id";
+
+            String likeTerm = "%" + searchTerm + "%";
+            List<Map<String, Object>> users = dbConfig.fetchRecords(query,
+                    likeTerm, likeTerm, likeTerm, likeTerm);
+
+            int count = 0;
+            for (Map<String, Object> user : users) {
+                count++;
+                tableModel.addRow(new Object[]{
+                    user.get("u_id"),
+                    user.get("name"),
+                    user.get("email"),
+                    user.get("gender"),
+                    user.get("role"),
+                    user.get("status")
+                });
+            }
+
+            if (count == 0) {
+                countLabel.setText("No users found for: '" + searchTerm + "'");
+                JOptionPane.showMessageDialog(this, "No users found matching: " + searchTerm);
+            } else {
+                countLabel.setText("Found " + count + " user(s) for: '" + searchTerm + "'");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error searching users: " + e.getMessage(),
+                    "Search Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_Search_btnActionPerformed
+
+    private void delete_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_btnActionPerformed
+        // Delete button functionality
+        int selectedRow = Tbl_Users.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Please select a user to delete from the table.",
+                    "No User Selected",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            String userId = tableModel.getValueAt(selectedRow, 0).toString();
+            String userName = tableModel.getValueAt(selectedRow, 1).toString();
+
+            String message = "Are you sure you want to delete this user?\n\n"
+                    + "ID: " + userId + "\n"
+                    + "Name: " + userName + "\n\n"
+                    + "This action cannot be undone!";
+
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    message,
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Updated query for actual database
+                String query = "DELETE FROM users WHERE u_id = ?";
+                int rowsAffected = dbConfig.executeUpdate(query, userId);
+
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(this,
+                            "User deleted successfully!",
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                    clearForm();
+                    loadUsers();
+
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "User not found or already deleted.",
+                            "Delete Failed",
+                            JOptionPane.WARNING_MESSAGE);
+
+                    loadUsers();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Delete cancelled.",
+                        "Cancelled",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error deleting user: " + e.getMessage()
+                    + "\n\nPlease try again or check database connection.",
+                    "Delete Error",
+                    JOptionPane.ERROR_MESSAGE);
+
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_delete_btnActionPerformed
+
+    private void Clear_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clear_btnActionPerformed
+        // Clear button functionality
+        boolean hasUnsavedChanges = !name.getText().trim().isEmpty()
+                || !email.getText().trim().isEmpty()
+                || !gender.getText().trim().isEmpty()
+                || !role.getText().trim().isEmpty();
+
+        if (hasUnsavedChanges) {
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "Clear all form fields? Any unsaved changes will be lost.",
+                    "Confirm Clear",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+
+            if (confirm != JOptionPane.YES_OPTION) {
+                return;
+            }
+        }
+
+        name.setText("");
+        email.setText("");
+        gender.setText("");
+        role.setText("");
+
+        Tbl_Users.clearSelection();
+        loadUsers();
+        name.requestFocus();
+    }//GEN-LAST:event_Clear_btnActionPerformed
+
+    private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
+        // Confirm button functionality (Add/Update user)
+        String userName = name.getText().trim();
+        String userEmail = email.getText().trim();
+        String userGender = gender.getText().trim();
+        String userRole = role.getText().trim();
+
+        if (userName.isEmpty() || userEmail.isEmpty() || userGender.isEmpty() || userRole.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields!");
+            return;
+        }
+
+        int selectedRow = Tbl_Users.getSelectedRow();
+
+        if (selectedRow >= 0) {
+            // Update existing user
+            updateExistingUser(selectedRow, userName, userEmail, userGender, userRole);
+        } else {
+            // Add new user
+            addNewUser(userName, userEmail, userGender, userRole);
+        }
+    }//GEN-LAST:event_confirm_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -89,6 +712,366 @@ public class admindashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Clear_btn;
+    private javax.swing.JButton Search_btn;
+    private javax.swing.JTable Tbl_Users;
+    private javax.swing.JButton confirm_btn;
+    private javax.swing.JButton delete_btn;
+    private javax.swing.JTextField email;
+    private javax.swing.JTextField gender;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField name;
+    private javax.swing.JTextField role;
     // End of variables declaration//GEN-END:variables
-}
+
+    
+private void initializeTable() {
+        // Set up table model with database columns
+        String[] columns = {"ID", "Name", "Email", "Gender", "Role", "Status"};
+        tableModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        Tbl_Users.setModel(tableModel);
+        
+        // Create and add count label to the panel
+        countLabel = new JLabel("Total Users: 0");
+        countLabel.setFont(new java.awt.Font("Times New Roman", 3, 14));
+        countLabel.setForeground(new java.awt.Color(255, 255, 255));
+        
+        // Remove existing layout and add count label
+        jPanel2.removeAll();
+        jPanel2.setLayout(new java.awt.BorderLayout());
+        
+        JPanel topPanel = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        topPanel.setBackground(new java.awt.Color(153, 102, 255));
+        topPanel.add(jLabel9);
+        topPanel.add(countLabel);
+        
+        jPanel2.add(topPanel, java.awt.BorderLayout.NORTH);
+        jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        
+        jPanel2.revalidate();
+        jPanel2.repaint();
+        
+        System.out.println("Table initialized successfully");
+    }
+
+    private void loadUsers() {
+        System.out.println("Loading users from database...");
+        try {
+            tableModel.setRowCount(0); // Clear table
+            
+            // First, check if users table exists
+            if (!checkIfTableExists("users")) {
+                // Create users table if it doesn't exist
+                createUsersTable();
+            }
+            
+            // Load all users from database
+            String query = "SELECT * FROM users ORDER BY u_id";
+            List<Map<String, Object>> users = dbConfig.fetchRecords(query);
+            
+            int count = 0;
+            if (users != null && !users.isEmpty()) {
+                for (Map<String, Object> user : users) {
+                    count++;
+                    tableModel.addRow(new Object[]{
+                        user.get("u_id") != null ? user.get("u_id") : "",
+                        user.get("name") != null ? user.get("name") : "",
+                        user.get("email") != null ? user.get("email") : "",
+                        user.get("gender") != null ? user.get("gender") : "",
+                        user.get("role") != null ? user.get("role") : "",
+                        user.get("status") != null ? user.get("status") : "Active"
+                    });
+                }
+                System.out.println("Successfully loaded " + count + " users from database");
+            } else {
+                System.out.println("No users found in database");
+                JOptionPane.showMessageDialog(this, 
+                    "No users found in database. The table might be empty.",
+                    "No Data",
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+            if (countLabel != null) {
+                countLabel.setText("Total Users: " + count);
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error loading users: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, 
+                "Error loading users from database:\n" + e.getMessage(),
+                "Database Error",
+                JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private boolean checkIfTableExists(String tableName) {
+        try {
+            // SQLite query to check if table exists
+            String query = "SELECT name FROM sqlite_master WHERE type='table' AND name=?";
+            List<Map<String, Object>> result = dbConfig.fetchRecords(query, tableName);
+            
+            return result != null && !result.isEmpty();
+            
+        } catch (Exception e) {
+            System.out.println("Error checking if table exists: " + e.getMessage());
+            return false;
+        }
+    }
+
+    private void createUsersTable() {
+        try {
+            System.out.println("Creating users table...");
+            
+            // Create users table with your database structure
+            String createTableSQL = 
+                "CREATE TABLE IF NOT EXISTS users (" +
+                "u_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "name TEXT," +
+                "email TEXT," +
+                "gender TEXT," +
+                "password TEXT NOT NULL," +
+                "role TEXT," +
+                "status TEXT DEFAULT 'Active')";
+            
+            dbConfig.executeUpdate(createTableSQL);
+            System.out.println("Users table created successfully");
+            
+            // Insert sample data
+            insertSampleData();
+            
+        } catch (Exception e) {
+            System.out.println("Error creating users table: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, 
+                "Error creating users table:\n" + e.getMessage(),
+                "Database Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void insertSampleData() {
+        try {
+            // Check if table is empty
+            String countQuery = "SELECT COUNT(*) as count FROM users";
+            List<Map<String, Object>> result = dbConfig.fetchRecords(countQuery);
+            
+            int rowCount = 0;
+            if (result != null && !result.isEmpty()) {
+                rowCount = Integer.parseInt(result.get(0).get("count").toString());
+            }
+            
+            if (rowCount == 0) {
+                System.out.println("Inserting sample data...");
+                
+                // Insert sample users
+                String[][] sampleUsers = {
+                    {"John Doe", "john@example.com", "Male", "password123", "Admin", "Active"},
+                    {"Jane Smith", "jane@example.com", "Female", "password123", "User", "Active"},
+                    {"Robert Johnson", "robert@example.com", "Male", "password123", "Manager", "Active"},
+                    {"Mary Williams", "mary@example.com", "Female", "password123", "User", "Inactive"},
+                    {"Michael Brown", "michael@example.com", "Male", "password123", "Developer", "Active"}
+                };
+                
+                String insertSQL = "INSERT INTO users (name, email, gender, password, role, status) VALUES (?, ?, ?, ?, ?, ?)";
+                
+                for (String[] user : sampleUsers) {
+                    dbConfig.executeUpdate(insertSQL, user[0], user[1], user[2], user[3], user[4], user[5]);
+                }
+                
+                System.out.println("Sample data inserted successfully");
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error inserting sample data: " + e.getMessage());
+        }
+    }
+
+    private void setupTableSelection() {
+        Tbl_Users.getSelectionModel().addListSelectionListener(event -> {
+            if (!event.getValueIsAdjusting()) {
+                int selectedRow = Tbl_Users.getSelectedRow();
+                if (selectedRow >= 0 && selectedRow < tableModel.getRowCount()) {
+                    // Populate form fields with selected user data
+                    name.setText(tableModel.getValueAt(selectedRow, 1).toString());
+                    email.setText(tableModel.getValueAt(selectedRow, 2).toString());
+                    gender.setText(tableModel.getValueAt(selectedRow, 3).toString());
+                    role.setText(tableModel.getValueAt(selectedRow, 4).toString());
+                }
+            }
+        });
+    }
+
+    private void searchUsersByName(String searchText) {
+        try {
+            tableModel.setRowCount(0);
+            
+            String query = "SELECT * FROM users WHERE " +
+                          "name LIKE ? OR " +
+                          "email LIKE ? OR " +
+                          "gender LIKE ? OR " +
+                          "role LIKE ? " +
+                          "ORDER BY u_id";
+            
+            String likeTerm = "%" + searchText + "%";
+            List<Map<String, Object>> users = dbConfig.fetchRecords(query, 
+                likeTerm, likeTerm, likeTerm, likeTerm);
+            
+            int count = 0;
+            for (Map<String, Object> user : users) {
+                count++;
+                tableModel.addRow(new Object[]{
+                    user.get("u_id") != null ? user.get("u_id") : "",
+                    user.get("name") != null ? user.get("name") : "",
+                    user.get("email") != null ? user.get("email") : "",
+                    user.get("gender") != null ? user.get("gender") : "",
+                    user.get("role") != null ? user.get("role") : "",
+                    user.get("status") != null ? user.get("status") : "Active"
+                });
+            }
+            
+            if (count == 0) {
+                countLabel.setText("No results for: '" + searchText + "'");
+                JOptionPane.showMessageDialog(this, 
+                    "No users found matching: " + searchText,
+                    "Search Results",
+                    JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                countLabel.setText("Found " + count + " user(s) for: '" + searchText + "'");
+                
+                if (count == 1) {
+                    Tbl_Users.setRowSelectionInterval(0, 0);
+                }
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                "Search error: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void searchUsersByEmail(String emailText) {
+        try {
+            tableModel.setRowCount(0);
+            
+            String query = "SELECT * FROM users WHERE email LIKE ? ORDER BY u_id";
+            String likeTerm = "%" + emailText + "%";
+            List<Map<String, Object>> users = dbConfig.fetchRecords(query, likeTerm);
+            
+            int count = 0;
+            for (Map<String, Object> user : users) {
+                count++;
+                tableModel.addRow(new Object[]{
+                    user.get("u_id") != null ? user.get("u_id") : "",
+                    user.get("name") != null ? user.get("name") : "",
+                    user.get("email") != null ? user.get("email") : "",
+                    user.get("gender") != null ? user.get("gender") : "",
+                    user.get("role") != null ? user.get("role") : "",
+                    user.get("status") != null ? user.get("status") : "Active"
+                });
+            }
+            
+            if (count == 0) {
+                countLabel.setText("No users with email: '" + emailText + "'");
+                JOptionPane.showMessageDialog(this, 
+                    "No users found with email: " + emailText,
+                    "Search Results",
+                    JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                countLabel.setText("Found " + count + " user(s) with email: '" + emailText + "'");
+                
+                if (count == 1) {
+                    Tbl_Users.setRowSelectionInterval(0, 0);
+                }
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                "Search error: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void clearForm() {
+        name.setText("");
+        email.setText("");
+        gender.setText("");
+        role.setText("");
+        
+        Tbl_Users.clearSelection();
+        loadUsers(); // Refresh the table
+        name.requestFocus();
+    }
+
+    private void updateExistingUser(int selectedRow, String userName, String userEmail, String userGender, String userRole) {
+        try {
+            Object idObj = tableModel.getValueAt(selectedRow, 0);
+            if (idObj == null) {
+                JOptionPane.showMessageDialog(this, "Invalid user ID!");
+                return;
+            }
+            
+            int id = Integer.parseInt(idObj.toString());
+            
+            // Update query
+            String query = "UPDATE users SET name = ?, email = ?, gender = ?, role = ? WHERE u_id = ?";
+            int rowsAffected = dbConfig.executeUpdate(query, userName, userEmail, userGender, userRole, id);
+            
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "User updated successfully!");
+                clearForm();
+                loadUsers();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to update user!");
+            }
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid user ID format!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error updating user: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void addNewUser(String userName, String userEmail, String userGender, String userRole) {
+        try {
+            // Default password and status
+            String defaultPassword = "password123";
+            String defaultStatus = "Active";
+            
+            // Insert query
+            String query = "INSERT INTO users (name, email, gender, password, role, status) VALUES (?, ?, ?, ?, ?, ?)";
+            int rowsAffected = dbConfig.executeUpdate(query, userName, userEmail, userGender, defaultPassword, userRole, defaultStatus);
+            
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "User added successfully!");
+                clearForm();
+                loadUsers();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to add user!");
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error adding user: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    }
