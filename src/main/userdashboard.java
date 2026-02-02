@@ -16,6 +16,7 @@ public class userdashboard extends javax.swing.JFrame {
      */
     public userdashboard() {
         initComponents();
+        
     }
 
     /**
@@ -27,31 +28,143 @@ public class userdashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        User_Name = new javax.swing.JTextField();
+        User_ID = new javax.swing.JTextField();
+        User_Status = new javax.swing.JTextField();
+        User_Email = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("USER");
+        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/CaptureNEW.PNG"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1042, 290));
+
+        jPanel1.setBackground(new java.awt.Color(102, 51, 255));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 102, 255), new java.awt.Color(102, 102, 255), new java.awt.Color(102, 0, 255), new java.awt.Color(102, 0, 255)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("ACCOUNT DETAILS");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 3, -1, 46));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/NewICON.PNG"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(732, 55, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("ACCOUNT ID:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 88, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("USERNAME:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 143, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("EMAIL:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 198, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("USER STATUS:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+
+        User_Name.setBackground(new java.awt.Color(102, 51, 255));
+        User_Name.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        User_Name.setForeground(new java.awt.Color(255, 255, 255));
+        User_Name.setBorder(null);
+        jPanel1.add(User_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 136, 200, 37));
+
+        User_ID.setBackground(new java.awt.Color(102, 51, 255));
+        User_ID.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        User_ID.setForeground(new java.awt.Color(255, 255, 255));
+        User_ID.setBorder(null);
+        User_ID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                User_IDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(User_ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 81, 200, 37));
+
+        User_Status.setBackground(new java.awt.Color(102, 51, 255));
+        User_Status.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        User_Status.setForeground(new java.awt.Color(255, 255, 255));
+        User_Status.setBorder(null);
+        User_Status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                User_StatusActionPerformed(evt);
+            }
+        });
+        jPanel1.add(User_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 200, 37));
+
+        User_Email.setBackground(new java.awt.Color(102, 51, 255));
+        User_Email.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        User_Email.setForeground(new java.awt.Color(255, 255, 255));
+        User_Email.setBorder(null);
+        User_Email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                User_EmailActionPerformed(evt);
+            }
+        });
+        jPanel1.add(User_Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 191, 200, 37));
+
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 1022, -1));
+
+        jButton1.setText("Edit Profile");
+        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 610, 178, 66));
+
+        jButton2.setText("Order History");
+        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 610, 178, 66));
+
+        jButton3.setText("Log Out");
+        jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 610, 178, 67));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void User_IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_User_IDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_User_IDActionPerformed
+
+    private void User_StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_User_StatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_User_StatusActionPerformed
+
+    private void User_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_User_EmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_User_EmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -89,6 +202,21 @@ public class userdashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField User_Email;
+    private javax.swing.JTextField User_ID;
+    private javax.swing.JTextField User_Name;
+    private javax.swing.JTextField User_Status;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

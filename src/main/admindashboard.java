@@ -23,15 +23,17 @@ public class admindashboard extends javax.swing.JFrame {
     private DefaultTableModel tableModel;
     private JLabel countLabel; // To show user count
 
-    /**
-     * Creates new form admindashboard
+    /*
      */
     public admindashboard() {
         initComponents();
-        dbConfig = new config();
-        initializeTable();
-        loadUsers();
-        setupTableSelection();
+    displayUsers();
+    }
+    void displayUsers(){
+    config conf = new config();
+    String sql = "SELECT * FROM user_tbl";
+    conf.displayData(sql, Tbl_Users);
+    
     }
 
     /**
@@ -231,6 +233,8 @@ public class admindashboard extends javax.swing.JFrame {
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Screenshot 2026-02-01 124117.png"))); // NOI18N
 
+        Tbl_Users.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
+        Tbl_Users.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         Tbl_Users.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
