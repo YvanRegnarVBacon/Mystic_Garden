@@ -140,7 +140,7 @@ public class admindashboard extends javax.swing.JFrame {
 
         delete_btn.setBackground(new java.awt.Color(153, 153, 255));
         delete_btn.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        delete_btn.setText("Delet");
+        delete_btn.setText("Delete");
         delete_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 delete_btnActionPerformed(evt);

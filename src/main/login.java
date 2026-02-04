@@ -22,8 +22,9 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        
     }
-
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,6 +101,7 @@ public class login extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
@@ -116,50 +118,50 @@ String hashedPass = hashPassword(userPass);
 config con = new config();
 
 // Fetch status AND role from database
-String sql = "SELECT status, role FROM user_tbl WHERE email = ? AND password = ?";
+String sql = "SELECT u_id, status, role FROM user_tbl WHERE email = ? AND password = ?";
 
 List<Map<String, Object>> result = con.fetchRecords(sql, userEmail, hashedPass);
 
+
 if (!result.isEmpty()) {
+
+    int userId = Integer.parseInt(
+        result.get(0).get("u_id").toString()
+    );
 
     String status = result.get(0).get("status").toString();
     String role   = result.get(0).get("role").toString();
 
-    // Check if approved first
     if (status.equalsIgnoreCase("approved")) {
 
         JOptionPane.showMessageDialog(null, "Login Successful!");
 
-        // Role-based redirect
         if (role.equalsIgnoreCase("admin")) {
 
             new admindashboard().setVisible(true);
 
         } else if (role.equalsIgnoreCase("user")) {
 
-            new userdashboard().setVisible(true);
+            new userdashboard(userId).setVisible(true); // ✅ FIX
 
         } else {
-
             JOptionPane.showMessageDialog(null, "Unknown user role!");
             return;
         }
 
-        // Close login form
         this.dispose();
 
     } else {
-
-        JOptionPane.showMessageDialog(null,
-                "Your account is not yet approved.\nPlease contact the admin.");
-
+        JOptionPane.showMessageDialog(
+            null,
+            "Your account is not yet approved.\nPlease contact the admin."
+        );
     }
 
 } else {
-
     JOptionPane.showMessageDialog(null, "Invalid email or password!");
-
 }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed

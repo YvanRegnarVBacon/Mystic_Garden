@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import javax.swing.SwingWorker;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 /**
  *
  * @author 63936
@@ -27,11 +28,6 @@ public class userdashboard extends javax.swing.JFrame {
         this.loggedInUserId = userId;
         loadUserData();
     }
-
-    userdashboard() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -185,7 +181,17 @@ public class userdashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        int choice = JOptionPane.showConfirmDialog(
+        this,
+        "Are you sure you want to log out?",
+        "Confirm Logout",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (choice == JOptionPane.YES_OPTION) {
+        new login().setVisible(true);
+        this.dispose();
+    }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
